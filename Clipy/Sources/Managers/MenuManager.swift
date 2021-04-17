@@ -191,7 +191,7 @@ private extension MenuManager {
             clipMenu?.addItem(NSMenuItem(title: L10n.clearHistory, action: #selector(AppDelegate.clearAllHistory)))
         }
 
-        clipMenu?.addItem(NSMenuItem(title: L10n.editSnippets, action: #selector(AppDelegate.showSnippetEditorWindow)))
+//        clipMenu?.addItem(NSMenuItem(title: L10n.editSnippets, action: #selector(AppDelegate.showSnippetEditorWindow)))
         clipMenu?.addItem(NSMenuItem(title: L10n.preferences, action: #selector(AppDelegate.showPreferenceWindow)))
         clipMenu?.addItem(NSMenuItem.separator())
         clipMenu?.addItem(NSMenuItem(title: L10n.quitClipy, action: #selector(AppDelegate.terminate)))
@@ -235,21 +235,8 @@ private extension MenuManager {
     func trimTitle(_ title: String?) -> String {
         if title == nil { return "" }
         let theString = title!.trimmingCharacters(in: .whitespacesAndNewlines) as String
-//
-//        let aRange = NSRange(location: 0, length: 0)
-//        var lineStart = 0, lineEnd = 0, contentsEnd = 0
-//        theString.getLineStart(&lineStart, end: &lineEnd, contentsEnd: &contentsEnd, for: aRange)
-//
-//        var titleString = (lineEnd == theString.length) ? theString as String : theString.substring(to: contentsEnd)
-//
-//        if maxMenuItemTitleLength < shortenSymbol.count {
-//            maxMenuItemTitleLength = shortenSymbol.count
-//        }
-//
-//        if titleString.utf16.count > maxMenuItemTitleLength {
-//            titleString = (titleString as NSString).substring(to: maxMenuItemTitleLength - shortenSymbol.count) + shortenSymbol
-//        }
-        let cutting = theString.prefix(AppEnvironment.current.defaults.integer(forKey: Constants.UserDefaults.maxMenuItemTitleLength));
+        //crew: Keep all new lines.
+        let cutting = theString.prefix(AppEnvironment.current.defaults.integer(forKey: Constants.UserDefaults.maxMenuItemTitleLength))
         return String(cutting) as String
     }
 }
@@ -309,6 +296,8 @@ private extension MenuManager {
     }
 
     func makeClipMenuItem(_ clip: CPYClip, index: Int, listNumber: Int) -> NSMenuItem {
+        //crew: add separator for each menu items.
+        clipMenu?.addItem(NSMenuItem.separator())
         let isMarkWithNumber = AppEnvironment.current.defaults.bool(forKey: Constants.UserDefaults.menuItemsAreMarkedWithNumbers)
         let isShowToolTip = AppEnvironment.current.defaults.bool(forKey: Constants.UserDefaults.showToolTipOnMenuItem)
         let isShowImage = AppEnvironment.current.defaults.bool(forKey: Constants.UserDefaults.showImageInTheMenu)
@@ -329,17 +318,11 @@ private extension MenuManager {
 
         let primaryPboardType = NSPasteboard.PasteboardType(rawValue: clip.primaryType)
         let clipString = clip.title
-        
         let title = trimTitle(clipString)
-        
-//        let title = clipString
-//
         let titleWithMark = menuItemTitle(title, listNumber: listNumber, isMarkWithNumber: isMarkWithNumber)
 
         let menuItem = NSMenuItem(title: titleWithMark, action: #selector(AppDelegate.selectClipMenuItem(_:)), keyEquivalent: keyEquivalent)
         menuItem.representedObject = clip.dataHash
-        
-        
         //crew: to show multiple lines on Menu Item
         menuItem.attributedTitle = NSMutableAttributedString(attributedString: NSAttributedString(string:titleWithMark))
 
