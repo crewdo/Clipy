@@ -23,6 +23,9 @@ __Distribution Site__ : <https://clipy-app.com>
 * macOS 10.15 Catalina
 * Xcode 12.2
 * Swift 5.3
+### This is why I fork it
+1. Supporting to show multiple lines on menu.
+2. Adding search function (implementing)
 
 ### How to Build
 0. Move to the project root directory
