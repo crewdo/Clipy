@@ -39,7 +39,7 @@ class CPYPlaceHolderTextView: NSTextView {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = .byTruncatingTail
         paragraphStyle.baseWritingDirection = .leftToRight
-        let attributes: [NSAttributedString.Key: Any] = [.font: NSFont.systemFont(ofSize: 14),
+        let attributes: [NSAttributedString.Key: Any] = [.font: NSFont.systemFont(ofSize: 23),
                                                          .foregroundColor: placeHolderColor,
                                                          .paragraphStyle: paragraphStyle]
         text.draw(at: NSPoint(x: 5, y: 5), withAttributes: attributes)
