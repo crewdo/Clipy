@@ -249,7 +249,7 @@ private extension MenuManager {
         let maxHistory = AppEnvironment.current.defaults.integer(forKey: Constants.UserDefaults.maxHistorySize)
 
         // History title
-        let labelItem = NSMenuItem(title: L10n.history, action: nil)
+        let labelItem = NSMenuItem(title: "Eber", action: nil)
         labelItem.isEnabled = false
         menu.addItem(labelItem)
 
